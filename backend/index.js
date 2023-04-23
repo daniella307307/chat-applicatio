@@ -1,13 +1,14 @@
 const express = require("express");
 const cors = require("cors");
+import bodyparser from 'body-parser';
+import mongoose from 'mongoose';
+
 
 const app = express();
+app.use(bodyparser.json({limit:"30mb",extended:true}));
+app.use(bodyparser.urlencoded({limit:"30mb",extended:true}));
 app.use(express.json());
-app.use(cors({ origin: true }));
+app.use(cors());
 
-app.post("/authenticate", async (req, res) => {
-  const { username } = req.body;
-  return res.json({ username: username, secret: "sha256..." });
-});
 
 app.listen(3001);
